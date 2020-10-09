@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MovieOffer</string>
+
+    <array name="movieList">
+        <item>Harry Potter 1</item>
+        <item>Harry Potter 2</item>
+        <item>Harry Potter 3</item>
+        <item>Harry Potter 4</item>
+        <item>Harry Potter 5</item>
+    </array>
+</resources>
