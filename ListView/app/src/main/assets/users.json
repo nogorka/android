@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Cleo",
+    "sex": "MAN",
+    "phoneNumber": "573-2602"
+  },
+  {
+    "name": "Lula",
+    "sex": "MAN",
+    "phoneNumber": "530-2867"
+  },
+  {
+    "name": "Watson",
+    "sex": "UNKNOWN",
+    "phoneNumber": "520-2202"
+  },
+  {
+    "name": "Roxie",
+    "sex": "UNKNOWN",
+    "phoneNumber": "466-3890"
+  },
+  {
+    "name": "Sallie",
+    "sex": "WOMAN",
+    "phoneNumber": "428-3422"
+  },
+  {
+    "name": "Julia",
+    "sex": "UNKNOWN",
+    "phoneNumber": "523-3858"
+  },
+  {
+    "name": "Alisha",
+    "sex": "UNKNOWN",
+    "phoneNumber": "441-2174"
+  },
+  {
+    "name": "Judith",
+    "sex": "UNKNOWN",
+    "phoneNumber": "589-2525"
+  },
+  {
+    "name": "Cross",
+    "sex": "MAN",
+    "phoneNumber": "451-3704"
+  },
+  {
+    "name": "Pauline",
+    "sex": "WOMAN",
+    "phoneNumber": "505-3153"
+  },
+  {
+    "name": "Graham",
+    "sex": "MAN",
+    "phoneNumber": "574-2868"
+  },
+  {
+    "name": "Marquita",
+    "sex": "MAN",
+    "phoneNumber": "476-2881"
+  },
+  {
+    "name": "Jaime",
+    "sex": "MAN",
+    "phoneNumber": "600-3708"
+  },
+  {
+    "name": "Joy",
+    "sex": "MAN",
+    "phoneNumber": "495-2350"
+  },
+  {
+    "name": "Porter",
+    "sex": "WOMAN",
+    "phoneNumber": "556-3198"
+  }
+]

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <!-- cities -->
+        <TextView
+            android:id="@+id/citiesTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Choose cites" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/citiesTV"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="1dp"
+            android:columnCount="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Departute" />
+
+            <Spinner
+                android:id="@+id/spn_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/cities" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arrival" />
+
+            <Spinner
+                android:id="@+id/spn_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/cities" />
+        </GridLayout>
+
+
+        <!-- dates -->
+        <TextView
+            android:id="@+id/datesTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Chose dates" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/datesTV"
+            android:layout_marginLeft="20dp"
+            android:columnCount="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Departute" />
+
+            <EditText
+                android:id="@+id/date_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="12.12.2000"
+                android:inputType="date" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Arrival" />
+
+            <EditText
+                android:id="@+id/date_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="12.12.2000"
+                android:inputType="date" />
+        </GridLayout>
+
+
+        <!-- people -->
+
+        <TextView
+            android:id="@+id/amountTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Chose amount of people" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="1dp"
+            android:columnCount="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount of adults: " />
+
+            <EditText
+                android:id="@+id/amount_adults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="1"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount of children: " />
+
+            <EditText
+                android:id="@+id/amount_children"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/amount_adults"
+                android:hint="0"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount of infants: " />
+
+            <EditText
+                android:id="@+id/amount_infants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/amount_children"
+                android:hint="0"
+                android:inputType="number" />
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="search tickets" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

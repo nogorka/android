@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SearchTickets</string>
+    <array name="cities">
+        <item>London</item>
+        <item>Paris</item>
+        <item>Berlin</item>
+        <item>Beijing</item>
+        <item>Tokyo</item>
+        <item>Madrid</item>
+        <item>Lyon</item>
+        <item>Kyoto</item>
+        <item>Irkutsk</item>
+        <item>Moscow</item>
+    </array>
+</resources>
