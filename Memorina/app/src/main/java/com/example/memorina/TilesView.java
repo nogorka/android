@@ -62,6 +62,7 @@ public class TilesView extends View {
     int openedCard = 0;  // число открытых карт
 
     Card[] openedCards = new Card[2];
+    int solvedCards = 0;
 
     Card[][] cards = new Card[row][col];
 
@@ -112,20 +113,17 @@ public class TilesView extends View {
                 int top = i * t_height;
 
 
-                //cards[i][j].reshapeCard(left, top, t_width, t_height);
-                //cards[i][j].draw(canvas);
+                cards[i][j].reshapeCard(left, top, t_width, t_height);
+                cards[i][j].draw(canvas);
             }
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO получить координаты касания
         int x = (int) event.getX();
         int y = (int) event.getY();
-        // TODO определить тип события
         if (event.getAction() == MotionEvent.ACTION_DOWN && !isOnPauseNow) {
-            // палец коснулся экрана
 
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
@@ -134,7 +132,6 @@ public class TilesView extends View {
                         if (cards[i][j].flip(x, y)) {
 
                             openedCard++;
-                            //Log.d("mytag", "card flipped: " + openedCard + " - " + cards[i][j]);
                             openedCards[0] = cards[i][j];
                             invalidate();
                             return true;
@@ -143,12 +140,8 @@ public class TilesView extends View {
 
                     if (openedCard == 1) {
 
-
-                        // перевернуть карту с задержкой
                         if (cards[i][j].flip(x, y)) {
                             openedCard++;
-                            // TODO если открылис карты одинакового цвета, удалить их из списка
-                            //Log.d("mytag", "card flipped: " + openedCard + " - " + cards[i][j]);
                             openedCards[1] = cards[i][j];
                             Log.d("mytag", "card : " + " - " + openedCards[0].color);
                             Log.d("mytag", "card : " + " - " + openedCards[1].color);
@@ -157,11 +150,7 @@ public class TilesView extends View {
 
                                 openedCards[0].backColor = openedCards[0].color;
                                 openedCards[1].backColor = openedCards[1].color;
-
-                                Toast toast = Toast.makeText(getContext(),
-                                        "Wow, you managed that", Toast.LENGTH_SHORT);
-                                toast.show();
-
+                                solvedCards += 2;
                             }
                             invalidate();
                             PauseTask task = new PauseTask();
@@ -171,18 +160,20 @@ public class TilesView extends View {
                         }
                     }
 
+                    if (solvedCards == row * col) {
+                        Toast toast = Toast.makeText(getContext(),
+                                "Wow, you managed that", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 }
             }
         }
-
-
-        // заставляет экран перерисоваться
         return true;
     }
 
-//    public void newGame() {
-//        // TODO запуск новой игры
-//    }
+    public void newGame() {
+        // TODO запуск новой игры
+    }
 
     class PauseTask extends AsyncTask<Integer, Void, Void> {
         @Override
