@@ -6,11 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import java.util.Random;
 
 public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     SurfaceHolder holder;
@@ -22,7 +20,7 @@ public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     MyRect rect;
 
-    int[] pallete = {Color.RED, Color.GREEN, Color.CYAN, Color.MAGENTA, Color.BLUE, Color.BLACK, Color.YELLOW};
+    int[] pallet = {Color.RED, Color.GREEN, Color.CYAN, Color.MAGENTA, Color.BLUE, Color.BLACK, Color.YELLOW};
 
     int getRandomInt(int max) {
         return (int) (Math.random() * max);
@@ -46,7 +44,6 @@ public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         @Override
         public void run() {
             super.run();
-            rect.rect.set(1080/2-50, 1548/2-50, 1080/2+50, 1548/2+50);
 
             while (runFlag) {
                 Canvas canvas = holder.lockCanvas();
@@ -72,11 +69,19 @@ public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                             ball2.x + ball2.speedX,
                             ball2.y + ball2.speedY
                     );
-
                 }
+
+                if (ball1.colorID == ball2.colorID) {
+                    Paint paint = new Paint();
+                    paint.setColor(pallet[5]);
+                    paint.setTextSize(70.0f);
+
+                    canvas.drawText("Seems to me you won, greeting?", 20, 100, paint);
+                    runFlag = false;
+                }
+
                 holder.unlockCanvasAndPost(canvas);
 
-                // нужна пауза на каждом кадре
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -85,8 +90,22 @@ public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    //todo onTouchEvent
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
 
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+
+                rect.rect.left = x - rect.semiEdge;
+                rect.rect.right = x + rect.semiEdge;
+                rect.rect.top = y - rect.semiEdge;
+                rect.rect.bottom = y + rect.semiEdge;
+        }
+        return true;
+    }
 
     public TestSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -120,9 +139,11 @@ public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     class MyRect {
         Rect rect;
         Paint paint;
+        int semiEdge = 50;
 
         MyRect() {
             rect = new Rect();
+            rect.set(1080 / 2 - semiEdge, 1548 / 2 - semiEdge, 1080 / 2 + semiEdge, 1548 / 2 + semiEdge);
 
             paint = new Paint();
             paint.setColor(Color.BLACK);
@@ -166,12 +187,12 @@ public class TestSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         private void changeColor() {
             Paint p = new Paint();
-            if (colorID + 1 >= pallete.length)
+            if (colorID + 1 >= pallet.length)
                 colorID = 0;
             else
                 colorID++;
 
-            p.setColor(pallete[colorID]);
+            p.setColor(pallet[colorID]);
             this.paint = p;
         }
 
