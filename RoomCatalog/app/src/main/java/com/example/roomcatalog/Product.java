@@ -11,12 +11,12 @@ import androidx.room.PrimaryKey;
                 parentColumns = "id",
                 childColumns = "category_id"))
 public class Product {
-    @PrimaryKey @NonNull
+    @PrimaryKey
+    @NonNull
     int id;
     String name;
     @NonNull
     int category_id;
-
 
     public Product() {
         this.id = 100;
@@ -35,7 +35,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", category_id=" + category_id +
+                ", category_item=" + category_id +
                 '}';
     }
 }

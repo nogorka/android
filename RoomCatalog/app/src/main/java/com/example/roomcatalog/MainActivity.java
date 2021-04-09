@@ -1,27 +1,25 @@
 package com.example.roomcatalog;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     CatalogDB db;
     ListView listView;
     Context cntx;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,38 +31,55 @@ public class MainActivity extends AppCompatActivity {
         db = CatalogDB.getInstance(cntx);
 
 
-        GetProducts gp = new GetProducts();
-        gp.execute();
+        GetCategory gc = new GetCategory();
+        gc.execute();
+
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.d("tag", "clicked at - " + i);
+
+                        GetProducts gp = new GetProducts();
+                        gp.execute(i);
+                    }
+                }
+        );
     }
 
 
-    class GetProducts extends AsyncTask<Void, Void, List<Product>> {
-
-        protected List<Product> doInBackground() {
-            return db.dao().getAllProducts();
-        }
+    class GetProducts extends AsyncTask<Integer, Void, List<Product>> {
 
         @Override
-        protected List<Product> doInBackground(Void... voids) {
-            List<Product> products = db.dao().getAllProducts();
-            Log.d("tag", "prods1 "+products);
+        protected List<Product> doInBackground(Integer... index) {
+            List<Product> products;
+            Log.d("tag", "index " + index[0]);
+
+            if (index[0] == -1)
+                products = db.dao().getAllProducts();
+            else
+                products = db.dao().getAllProductByCategoryId(index[0] + 1);
+
+            Log.d("tag", "products " + products);
             return products;
         }
 
         @Override
         protected void onPostExecute(List<Product> products) {
             super.onPostExecute(products);
-            Log.d("tag", "prods "+products);
-            //create adapter
-            List<Map<String, String>> myMapList = new ArrayList<Map<String, String>>();
-            for (Product product : products) {
-                Map<String, String> myMap = new HashMap<String, String>();
-                myMap.put("id", Integer.toString(product.id));
-                myMap.put("category_id", Integer.toString(product.category_id));
-                myMap.put("name", product.name);
-                myMapList.add(myMap);
+
+            //transform to adapter
+            List<Map<String, String>> list = new ArrayList();
+            for (Product p : products) {
+
+                Map<String, String> lineMap = new HashMap();
+                lineMap.put("id", Integer.toString(p.id));
+                lineMap.put("category_item", Integer.toString(p.category_id));
+                lineMap.put("name", p.name);
+                list.add(lineMap);
             }
-            ProductAdapter adapter = new ProductAdapter(cntx, myMapList, R.layout.item,
+
+            CatalogAdapter adapter = new CatalogAdapter(cntx, list, R.layout.product_item,
                     new String[]{"id", "name", "c_id"},
                     new int[]{R.id.id, R.id.name, R.id.category_id});
             listView.setAdapter(adapter);
@@ -72,4 +87,53 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    class GetCategory extends AsyncTask<Void, Void, List<Category>> {
+
+        protected List<Product> doInBackground() {
+            return db.dao().getAllProducts();
+        }
+
+        @Override
+        protected List<Category> doInBackground(Void... voids) {
+            List<Category> categories = db.dao().getAllCategories();
+            Log.d("tag", "cat " + categories);
+            return categories;
+        }
+
+        @Override
+        protected void onPostExecute(List<Category> categories) {
+            super.onPostExecute(categories);
+
+            //transform to adapter
+            List<Map<String, String>> list = new ArrayList();
+            for (Category c : categories) {
+
+                Map<String, String> lineMap = new HashMap();
+                lineMap.put("id", Integer.toString(c.id));
+                lineMap.put("name", c.name);
+                list.add(lineMap);
+            }
+            CatalogAdapter adapter = new CatalogAdapter(cntx, list, R.layout.category_item,
+                    new String[]{"name"},
+                    new int[]{R.id.name});
+            listView.setAdapter(adapter);
+        }
+    }
+
+    public void OnClick(View v) {
+        switch (v.getId()) {
+            case R.id.back: {
+                GetCategory gc = new GetCategory();
+                gc.execute();
+                break;
+            }
+            case R.id.all_products: {
+                GetProducts gp = new GetProducts();
+                gp.execute(-1);
+                break;
+            }
+        }
+    }
+
 }

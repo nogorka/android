@@ -13,7 +13,6 @@ public class Category {
     int id;
     String name;
 
-    // ignore annotation here
     @Ignore
     public Category() {
         this.id = 100;
@@ -25,7 +24,6 @@ public class Category {
         this.name = name;
 
     }
-
 
     @Override
     public String toString() {

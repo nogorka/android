@@ -8,16 +8,18 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="addRecord"
-        android:text="Add tune" />
+        android:onClick="OnClick"
+        android:text="Back" />
 
     <Button
+        android:id="@+id/all_products"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="deleteRecord"
-        android:text="Clear" />
+        android:onClick="OnClick"
+        android:text="All products" />
 
 
     <ListView
