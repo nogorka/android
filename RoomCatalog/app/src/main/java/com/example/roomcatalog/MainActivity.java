@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     Context cntx;
 
+    List<Category> categoriesAll;
+    List<Product> productAll;
+    List<Product> productById;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +59,13 @@ public class MainActivity extends AppCompatActivity {
             List<Product> products;
             Log.d("tag", "index " + index[0]);
 
-            if (index[0] == -1)
+            if (index[0] == -1) {
                 products = db.dao().getAllProducts();
-            else
+                // productAll = products;
+            } else {
                 products = db.dao().getAllProductByCategoryId(index[0] + 1);
+                //productById = products;
+            }
 
             Log.d("tag", "products " + products);
             return products;
@@ -68,19 +75,29 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Product> products) {
             super.onPostExecute(products);
 
+            GetCategory gc = new GetCategory();
+
+
             //transform to adapter
             List<Map<String, String>> list = new ArrayList();
             for (Product p : products) {
 
                 Map<String, String> lineMap = new HashMap();
                 lineMap.put("id", Integer.toString(p.id));
-                lineMap.put("category_item", Integer.toString(p.category_id));
+                //lineMap.put("category_id", Integer.toString(p.category_id));
+                if (!categoriesAll.isEmpty() && categoriesAll != null)
+                    for (Category c : categoriesAll) {
+                        if (p.category_id == c.id) {
+                            lineMap.put("category_id", c.name);
+                        }
+                    }
                 lineMap.put("name", p.name);
                 list.add(lineMap);
             }
+            Log.d("tag", "for adapter list " + list);
 
             CatalogAdapter adapter = new CatalogAdapter(cntx, list, R.layout.product_item,
-                    new String[]{"id", "name", "c_id"},
+                    new String[]{"id", "name", "category_id"},
                     new int[]{R.id.id, R.id.name, R.id.category_id});
             listView.setAdapter(adapter);
         }
@@ -97,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected List<Category> doInBackground(Void... voids) {
             List<Category> categories = db.dao().getAllCategories();
+            categoriesAll = categories;
             Log.d("tag", "cat " + categories);
             return categories;
         }
