@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey;
                 parentColumns = "id",
                 childColumns = "category_id"))
 public class Product {
+
     @PrimaryKey
     @NonNull
     int id;

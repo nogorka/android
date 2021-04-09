@@ -22,11 +22,10 @@ public abstract class CatalogDB extends RoomDatabase {
         return (instance);
     }
 
-    static CatalogDB create(Context ctxt, boolean memoryOnly) {
+    static CatalogDB create(Context context, boolean memoryOnly) {
         RoomDatabase.Builder<CatalogDB> b = null;
         if (!memoryOnly) {
-            b = Room
-                    .databaseBuilder(ctxt.getApplicationContext(), CatalogDB.class, DB_NAME)
+            b = Room.databaseBuilder(context.getApplicationContext(), CatalogDB.class, DB_NAME)
                     .createFromAsset("databases/catalog.db");
         }
         return (b.build());

@@ -22,7 +22,6 @@ public class Category {
     public Category(int id, @NonNull String name) {
         this.id = id;
         this.name = name;
-
     }
 
     @Override

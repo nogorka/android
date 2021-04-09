@@ -16,5 +16,4 @@ public interface CatalogDAO {
 
     @Query("SELECT * FROM product WHERE category_id like :id")
     List<Product> getAllProductByCategoryId(int id);
-
 }

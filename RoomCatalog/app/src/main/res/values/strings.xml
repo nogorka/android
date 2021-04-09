@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RoomCatalog</string>
+    <string name="all_products">All products</string>
+    <string name="back">Back</string>
 </resources>
