@@ -1,3 +1,3 @@
 # RecyclerView example
 
-![preview](../preview.png)
+![preview](./preview.png)
