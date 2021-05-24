@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RecycleList</string>
+    <string name="empty">empty</string>
+</resources>
